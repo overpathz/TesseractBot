@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 @Component
 public class HabrParser {
     private static final String HABR = "https://habr.com";
@@ -21,7 +19,7 @@ public class HabrParser {
     private static int cachedPostId = -20;
 
     @SneakyThrows
-    public Article getParsedPostTags() {
+    public Article getArticle() {
         int articleId = getLastArticleId();
         String specificParsePost = HABR + "/ru/post/" + articleId;
         Document postPage = Jsoup.connect(specificParsePost).get();
