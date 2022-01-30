@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "tag_link")
 public class TagLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
