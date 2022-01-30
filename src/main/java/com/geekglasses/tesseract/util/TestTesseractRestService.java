@@ -15,11 +15,11 @@ import java.util.List;
 public class TestTesseractRestService {
     private static final String HABR_ARTICLES = "http://localhost:8080/articles";
 
-    private static int cachedPostId = -20;
+    private static int cachedPostId = -0;
 
     @SneakyThrows
     public Article getArticle() {
-        List<String> tags = new ArrayList<>(List.of("java"));
+        List<String> tags = new ArrayList<>(List.of("c++", "java"));
         return new Article("", "https://habr.com/ru/company/luxoft/news/t/585650/", -1, tags);
     }
 
