@@ -1,8 +1,6 @@
 package com.geekglasses.tesseract.entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 
@@ -14,6 +12,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "chat_id")
     private Long chatId;
