@@ -1,8 +1,6 @@
 package com.geekglasses.tesseract.util;
 
 import com.geekglasses.tesseract.model.Article;
-import com.geekglasses.tesseract.task.PostCheckerRunnable;
-import lombok.SneakyThrows;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
