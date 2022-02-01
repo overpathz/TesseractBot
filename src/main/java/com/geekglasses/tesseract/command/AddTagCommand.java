@@ -15,6 +15,7 @@ public class AddTagCommand extends AbstractCommand {
         this.userTagService = userTagService;
     }
 
+    @Override
     public void handle(Message message) {
         String text = message.getText();
         Long chatId = message.getChatId();
@@ -29,7 +30,7 @@ public class AddTagCommand extends AbstractCommand {
             messageSender.sendMessage(SendMessage
                     .builder()
                     .chatId(String.valueOf(chatId))
-                    .text("You have added than 5 tags!")
+                    .text("You have added more than 5 tags!")
                     .build());
         }
     }
