@@ -1,24 +1,25 @@
 package com.geekglasses.tesseract.handler;
 
-import com.geekglasses.tesseract.entity.User;
-import com.geekglasses.tesseract.entity.UserTag;
-import com.geekglasses.tesseract.service.UserService;
-import com.geekglasses.tesseract.service.UserTagService;
+import com.geekglasses.tesseract.command.AddTagCommand;
+import com.geekglasses.tesseract.command.EchoCommand;
+import com.geekglasses.tesseract.command.StartCommand;
 import com.geekglasses.tesseract.util.BotCommands;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Component
 @Slf4j
+@Component
 public class MessageHandler implements Handler<Message> {
 
-    private final UserService userService;
-    private final UserTagService userTagService;
+    private final AddTagCommand addTagCommand;
+    private final StartCommand startCommand;
+    private final EchoCommand echoCommand;
 
-    public MessageHandler(UserService userService, UserTagService userTagService) {
-        this.userService = userService;
-        this.userTagService = userTagService;
+    public MessageHandler(AddTagCommand addTagCommand, StartCommand startCommand, EchoCommand echoCommand) {
+        this.addTagCommand = addTagCommand;
+        this.startCommand = startCommand;
+        this.echoCommand = echoCommand;
     }
 
     @Override
@@ -27,17 +28,11 @@ public class MessageHandler implements Handler<Message> {
             String text = message.getText();
 
             if (text.equals(BotCommands.START)) {
-                User user = new User();
-                user.setChatId(message.getChatId());
-                user.setUsername(message.getChat().getUserName());
-                userService.save(user);
+                startCommand.handle(message);
             } else if (text.contains(BotCommands.ADD_TAG)) {
-                String desiredTag = text.split(" ")[1].trim();
-
-                UserTag userTag = new UserTag();
-                userTag.setChatId(message.getChatId());
-                userTag.setTag(desiredTag);
-                userTagService.save(userTag);
+                addTagCommand.handle(message);
+            } else {
+                echoCommand.handle(message);
             }
         }
     }
