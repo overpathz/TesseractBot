@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class EchoCommand extends AbstractCommand {
 
     public void handle(Message message) {
-        getMessageSender().sendMessage(SendMessage.builder()
+        messageSender.sendMessage(SendMessage.builder()
                 .chatId(String.valueOf(message.getChatId()))
                 .text(message.getText())
                 .build());

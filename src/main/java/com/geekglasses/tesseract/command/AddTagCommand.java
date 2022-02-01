@@ -26,7 +26,7 @@ public class AddTagCommand extends AbstractCommand {
             userTag.setTag(desiredTag);
             userTagService.save(userTag);
         } else {
-            getMessageSender().sendMessage(SendMessage
+            messageSender.sendMessage(SendMessage
                     .builder()
                     .chatId(String.valueOf(chatId))
                     .text("You have added than 5 tags!")
