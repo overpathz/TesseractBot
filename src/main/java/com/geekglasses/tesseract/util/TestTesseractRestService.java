@@ -1,12 +1,11 @@
 package com.geekglasses.tesseract.util;
 
 import com.geekglasses.tesseract.model.Article;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,9 +14,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class TestTesseractRestService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestTesseractRestService.class);
 
     private static final String HABR_ARTICLES = "http://localhost:8080/articles";
     private static int cachedPostId = 648648;
@@ -44,7 +42,7 @@ public class TestTesseractRestService {
         try {
             page = Jsoup.connect(HABR_ARTICLES).get();
         } catch (IOException e) {
-            LOGGER.error("Can not get Document by get() method", e);
+            log.error("Can not get Document by get() method", e);
         }
         Objects.requireNonNull(page, "Parsed Document object should be not null");
         Elements articles = page.getElementsByClass("tm-articles-list__item");
