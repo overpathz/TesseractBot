@@ -13,6 +13,7 @@ public class DefaultProcessor implements Processor {
         this.messageHandler = messageHandler;
     }
 
+    @Override
     public void executeMessage(Message message) {
         messageHandler.choose(message);
     }
