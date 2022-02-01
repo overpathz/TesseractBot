@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Component
-public class StartCommand implements Command {
+public class StartCommand extends AbstractCommand {
 
     private final UserService userService;
 
