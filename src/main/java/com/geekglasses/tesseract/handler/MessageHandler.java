@@ -2,20 +2,23 @@ package com.geekglasses.tesseract.handler;
 
 import com.geekglasses.tesseract.entity.User;
 import com.geekglasses.tesseract.entity.UserTag;
-import com.geekglasses.tesseract.repo.UserRepo;
-import com.geekglasses.tesseract.repo.UserTagRepo;
+import com.geekglasses.tesseract.service.UserService;
+import com.geekglasses.tesseract.service.UserTagService;
+import com.geekglasses.tesseract.util.BotCommands;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Component
+@Slf4j
 public class MessageHandler implements Handler<Message> {
 
-    private final UserRepo userRepo;
-    private final UserTagRepo userTagRepo;
+    private final UserService userService;
+    private final UserTagService userTagService;
 
-    public MessageHandler(UserRepo userRepo, UserTagRepo userTagRepo) {
-        this.userRepo = userRepo;
-        this.userTagRepo = userTagRepo;
+    public MessageHandler(UserService userService, UserTagService userTagService) {
+        this.userService = userService;
+        this.userTagService = userTagService;
     }
 
     @Override
@@ -23,18 +26,18 @@ public class MessageHandler implements Handler<Message> {
         if (message.hasText()) {
             String text = message.getText();
 
-            if (text.equals("/start")) {
+            if (text.equals(BotCommands.START)) {
                 User user = new User();
                 user.setChatId(message.getChatId());
                 user.setUsername(message.getChat().getUserName());
-                userRepo.save(user);
-            } else if (text.contains("/addtag")) {
+                userService.save(user);
+            } else if (text.contains(BotCommands.ADD_TAG)) {
                 String desiredTag = text.split(" ")[1].trim();
 
                 UserTag userTag = new UserTag();
                 userTag.setChatId(message.getChatId());
                 userTag.setTag(desiredTag);
-                userTagRepo.save(userTag);
+                userTagService.save(userTag);
             }
         }
     }
