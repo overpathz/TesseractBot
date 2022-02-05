@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class TestTesseractRestService {
     private static int cachedPostId = 648648;
 
     public Article getArticle() {
-        List<String> tags = new ArrayList<>(List.of("c++", "java"));
+        List<String> tags = new ArrayList<>(Arrays.asList("c++", "java"));
         return new Article("", "https://habr.com/ru/company/luxoft/news/t/585650/", -1, tags);
     }
 
