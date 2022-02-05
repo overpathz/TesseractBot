@@ -17,7 +17,7 @@ public class DeleteTagCommand extends AbstractCommand {
     public void handle(Message message) {
         userTagService.delete(
                 userTagService.findByChatIdAndTag(message.getChatId(),
-                        message.getText().split(" ")[1])
+                        messageParser.getCmdText(message))
         );
     }
 }

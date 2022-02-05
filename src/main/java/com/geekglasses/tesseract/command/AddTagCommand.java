@@ -17,15 +17,19 @@ public class AddTagCommand extends AbstractCommand {
 
     @Override
     public void handle(Message message) {
-        String text = message.getText();
         Long chatId = message.getChatId();
+        String text = messageParser.getCmdText(message);
 
         if (userTagService.isLessThanFive(chatId)) {
-            String desiredTag = text.split(" ")[1].trim();
-            UserTag userTag = new UserTag();
-            userTag.setChatId(chatId);
-            userTag.setTag(desiredTag);
-            userTagService.save(userTag);
+            if (userTagService.getAllByTag(chatId, text).isEmpty()) {
+                addTag(message, chatId);
+            } else {
+                messageSender.sendMessage(SendMessage
+                        .builder()
+                        .chatId(String.valueOf(chatId))
+                        .text("Such tag is already exists")
+                        .build());
+            }
         } else {
             messageSender.sendMessage(SendMessage
                     .builder()
@@ -33,5 +37,13 @@ public class AddTagCommand extends AbstractCommand {
                     .text("You have added more than 5 tags!")
                     .build());
         }
+    }
+
+    private void addTag(Message message, Long chatId) {
+        String desiredTag = messageParser.getCmdText(message);
+        UserTag userTag = new UserTag();
+        userTag.setChatId(chatId);
+        userTag.setTag(desiredTag);
+        userTagService.save(userTag);
     }
 }

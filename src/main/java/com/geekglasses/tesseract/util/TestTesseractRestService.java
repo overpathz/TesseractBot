@@ -32,7 +32,6 @@ public class TestTesseractRestService {
             cachedPostId = lastArticleId;
             return true;
         }
-        cachedPostId = lastArticleId;
         return false;
     }
 

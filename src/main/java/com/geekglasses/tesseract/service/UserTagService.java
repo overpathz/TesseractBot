@@ -39,6 +39,10 @@ public class UserTagService {
         return userTagRepo.findByChatIdAndTag(chatId, tag);
     }
 
+    public List<UserTag> getAllByTag(Long chatId, String tag) {
+        return userTagRepo.findAllByChatIdAndTag(chatId, tag);
+    }
+
     public boolean isLessThanFive(Long chatId) {
         return getAllByChatId(chatId).size() < 5;
     }
